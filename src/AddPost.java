@@ -7,17 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "MyServlet",urlPatterns = "/posts")
-public class MyServlet extends HttpServlet {
+@WebServlet(name = "AddPost", urlPatterns = "/add")
+public class AddPost extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String txt = request.getParameter("txt");
+        DAO.addpost(txt);
+        response.sendRedirect("/posts");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("posts", DAO.getPost());
 
-        //response.sendRedirect("http://ya.ru");
-
-        request.getRequestDispatcher("WEB-INF/posts.jsp").forward(request,response);
     }
 }
