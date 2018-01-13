@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(name = "MyServlet",urlPatterns = "/posts")
 public class MyServlet extends HttpServlet {
@@ -14,7 +15,11 @@ public class MyServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("posts", DAO.getPost());
+        try {
+            request.setAttribute("posts", DAO.getPost());
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
         //response.sendRedirect("http://ya.ru");
 
